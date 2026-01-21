@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f7dc6f);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            position: relative;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            animation: wiggle 1s ease infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .message {
+            font-size: 1.3em;
+            color: #333;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .image-container {
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
+            border: 8px dashed #ff6b6b;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder {
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .age-counter {
+            font-size: 4em;
+            font-weight: bold;
+            color: #4ecdc4;
+            margin: 20px 0;
+            animation: pulse 1s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .joke {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #f7dc6f;
+            font-style: italic;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            position: absolute;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .cake {
+            font-size: 5em;
+            margin: 20px 0;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 ¡FELIZ CUMPLEAÑOS! 🎉</h1>
+        
+        <div class="message">
+            ¡Estás oficialmente un año más cerca de...
+            <br><strong>¡necesitar lentes para leer esto!</strong> 👓
+        </div>
+
+        <div class="age-counter" id="age">🎂</div>
+
+        <div class="image-container">
+            <!-- Aquí puedes agregar tu imagen -->
+            <img src="" alt="" id="birthdayImage" style="display: none;">
+            <div class="placeholder" id="placeholder">
+                📸 Coloca aquí la foto del cumpleañero
+                <br><small>(Arrastra una imagen o haz clic)</small>
+            </div>
+        </div>
+
+        <div class="joke">
+            💡 <strong>Dato curioso:</strong> Las velas de cumpleaños son como años...
+            <br>¡Cada vez son más difíciles de soplar todas de una vez!
+        </div>
+
+        <div class="message">
+            No te preocupes por envejecer...
+            <br>¡Como el vino, tú mejoras con la edad!
+            <br><small>(O al menos eso es lo que nos decimos todos 😄)</small>
+        </div>
+
+        <button onclick="celebrar()">🎊 ¡CELEBRAR! 🎊</button>
+    </div>
+
+    <script>
+        // Crear confetti
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = ['#ff6b6b', '#4ecdc4', '#f7dc6f', '#95e1d3'][Math.floor(Math.random() * 4)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // Crear confetti inicial
+        createConfetti();
+        setInterval(createConfetti, 3000);
+
+        // Función de celebración
+        function celebrar() {
+            createConfetti();
+            const messages = [
+                "🎉 ¡Eres increíble!",
+                "🎊 ¡Que sigas cumpliendo muchos más!",
+                "🎈 ¡Hoy es tu día especial!",
+                "🎁 ¡Disfruta cada momento!",
+                "🍰 ¡A comer pastel!"
+            ];
+            alert(messages[Math.floor(Math.random() * messages.length)]);
+        }
+
+        // Manejo de imagen
+        const imageContainer = document.querySelector('.image-container');
+        const placeholder = document.getElementById('placeholder');
+        const birthdayImage = document.getElementById('birthdayImage');
+
+        imageContainer.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        birthdayImage.src = event.target.result;
+                        birthdayImage.style.display = 'block';
+                        placeholder.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        });
+
+        // Drag and drop
+        imageContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageContainer.style.borderColor = '#4ecdc4';
+        });
+
+        imageContainer.addEventListener('dragleave', () => {
+            imageContainer.style.borderColor = '#ff6b6b';
+        });
+
+        imageContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageContainer.style.borderColor = '#ff6b6b';
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    birthdayImage.src = event.target.result;
+                    birthdayImage.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
